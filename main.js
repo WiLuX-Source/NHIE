@@ -1326,7 +1326,7 @@ var nhie = {
 	pt : "Eu nunca",
 	fr : "Je n’ai jamais",
 	de : "Ich habe noch nie",
-	gr : "Ποτέ δεν"
+	gr : "Ποτέ δεν έχω"
 }
 
 function pickQuestion(){

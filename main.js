@@ -323,11 +323,26 @@ var nhie = {
 }
 
 function pickQuestion(){
-	var arr = window.questions[window.language];
-	var exclude = window.questionsEx[window.language];
-	const excludeMap = exclude.reduce((all, item) => ({ ...all, [item]: true }), {});
-	const uniqueQuestions = arr.filter((item) => !excludeMap?.[item]);
+	const excludeMap = questionsEx[language].reduce((all, item) => ({ ...all, [item]: true }), {});
+	const uniqueQuestions = questions[language].filter((item) => !excludeMap?.[item]);
 	var rand =  Math.floor(Math.random() * (uniqueQuestions.length - 1));
-	window.questionsEx[window.language].push(uniqueQuestions[rand]);
-	return uniqueQuestions[rand].split(window.nhie[window.language], 3)[1].trim();
+	window.questionsEx[language].push(uniqueQuestions[rand]);
+	return [rand, uniqueQuestions[rand].split(nhie[language], 3)[1].trim()];
+}
+var players = {};
+function addPlayer(name){
+	window.players[name] = {
+		questions : []
+	};
+}
+function addPlayers(playerList){
+	playerList.forEach((name) => {
+		addPlayer(name);
+	});
+}
+//call this when drawing a new question so we can keep track of who drank. Question is an ID of the question
+function addScore(playerList, question){
+	playerList.forEach((name) => {
+		window.players[name].questions.push(question);
+	});
 }

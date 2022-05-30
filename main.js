@@ -346,3 +346,8 @@ function addScore(playerList, question){
 		window.players[name].questions.push(question);
 	});
 }
+function genScoreboard(){
+	Object.entries(window.players).sort(function(a,b){
+		return b[1].questions.length-a[1].questions.length;
+	});
+}

@@ -2329,6 +2329,9 @@ var clanguage = ('; '+document.cookie).split(`; LANG=`).pop().split(';')[0];
 if(languages.includes(clanguage)){
 	language = clanguage;
 }
+if(!languages.includes(language)){
+	language = "en";
+}
 function switchLang(lang){
 	document.cookie = "LANG="+lang+"; expires="+new Date(Date.now()+315360000000).toUTCString()+ ";path=/";
 	location.reload();

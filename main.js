@@ -2323,7 +2323,7 @@ questions.tr = [
     "Hiç kamuoyunda garip bir durum yaşamadım"
 ];
 
-var languages = keys(questions);
+var languages = Object.keys(questions);
 var language = (navigator.userLanguage || navigator.language).slice(0, 2);
 var clanguage = ('; '+document.cookie).split(`; LANG=`).pop().split(';')[0];
 if(languages.includes(clanguage)){

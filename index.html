@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NHIE</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1 id="title"></h1>
+    <div class="wrapper">
+        <div class="reg">
+            <input type="text" name="username" placeholder="username" pattern="[a-zA-Z]+">
+            <button id="usubmit">Add User</button>
+        </div>
+        <div style="display:none;" class="questions">
+            <div class="container">
+                <div class="users">
+                    <button class="button-66 user">User1</button>
+                    <button class="button-66">User2</button>
+                    <input type="checkbox" hidden name="User1">
+                    <input type="checkbox" hidden name="User2">
+                </div>
+                <button class="button-66">Next Question</button>
+            </div>
+            <div class="status">
+                <h2>Status</h2>
+                <span>User1 : Score</span>
+                <span>User2 : Score</span>
+            </div>
+        </div>
+        <div style="display: none;" class="result">
+
+        </div>
+    </div>
+
+
+
+
+
+
+    <script src="main.js"></script>
+    <script>
+        let userworkspace = document.querySelector('.users')
+    for (const [name] of Object.entries(players)) {
+        let button = document.createElement('button')
+        button.className = "button-66 user"
+        button.textContent = name
+        userworkspace.append(button)
+    }
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.querySelector('#title').textContent = `${nhie[language]}...`
+    </script>
+</body>
+</html>

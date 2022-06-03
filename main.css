@@ -1,0 +1,47 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+h1,h2,span {
+    color:white;
+}
+body {
+    background: linear-gradient(45deg,#0e0027 ,#a51eea) no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.users {
+    display: flex;
+    column-gap: 16px;
+}
+
+/* CSS */
+.button-66 {
+  background-color: #a51eea;
+  border-radius: 4px;
+  border: 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inherit;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  margin: 0;
+  min-height: 16px;
+  min-width: 32px;
+  padding: 16px 20px;
+  position: relative;
+  text-align: center;
+  vertical-align: baseline;
+  transition: all .2s cubic-bezier(.22, .61, .36, 1);
+}
+
+.button-66:hover {
+
+    background-color: #911acc;
+}
+.button-66:focus {
+    box-shadow: rgb(122 0 207) 0 -1px 3px 3px, rgb(91, 0, 156) 0 3px 6px 0;
+}

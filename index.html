@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NHIE</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1 id="title"></h1>
+    <div class="wrapper">
+        <div class="reg" id="reg">
+			<form id="usersRegForm">
+				<div id="userInputs">
+					<div id="userInput">
+						<input type="text" class ="usernameInput" name="username" placeholder="PlayerName" pattern="[a-zA-Z]+"><button type="button" class="removebtn">❌</button>
+					</div>
+				</div>
+			</form>
+			<button onclick="addUserFields();"> + </button>
+			<button onclick="startGame();"> Start the Game </button>
+        </div>
+        <div style="display:none;" class="questions" id="questions">
+			<p id="question"></p>
+			<div class="users">
+                <button class="button-66 user">User1</button>
+                <button class="button-66">User2</button>
+                <input type="checkbox" hidden name="User1">
+                <input type="checkbox" hidden name="User2">
+            </div>
+			<button onclick="showNextQuestion();">Next Question</button>
+        </div>
+        <div style="display: none;" class="result">
+
+        </div>
+    </div>
+
+
+
+
+
+    <script src="main.js"></script>
+    <script>
+	document.getElementById("title").innerText = `${nhie[language]}...`;
+	function addUserFields(){
+		var userInputs = document.getElementById("userInputs");
+		var clonedNode = userInputs.lastElementChild.cloneNode(true);
+		clonedNode.firstElementChild.value = "";
+		userInputs.appendChild(clonedNode);
+	}
+	function startGame() {
+		if (document.getElementById("usersRegForm").reportValidity()) {
+            let inputs = document.getElementsByClassName("usernameInput");
+            let userarray = [];
+            for(var i = 0;i<inputs.length;i++){
+				userarray.push(inputs[i].value)
+			}
+            addPlayers(userarray);
+			showNextQuestion();
+			document.getElementById("reg").style.display = "none";
+			document.getElementById("questions").style.display = "block";
+        }
+	}
+	function showNextQuestion(){
+		var questionEl = document.getElementById("question");
+		var randQuestion = pickQuestion();
+		questionEl.innerText = randQuestion[1];
+		questionEl.setAttribute("qid", randQuestion[0]);
+	}
+	function fetchSelectedUsers(){
+		//get all ticked checkboxes
+		//playerlist = array
+		//quesiton = document.getElementById("question").getAttribute("qid")
+		//addScore(playerList, question)
+	}
+    </script>
+</body>
+</html>

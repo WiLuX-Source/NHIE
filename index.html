@@ -14,8 +14,15 @@
     <h1 id="title"></h1>
     <div class="wrapper">
         <div class="reg">
-            <input type="text" name="username" placeholder="username" pattern="[a-zA-Z]+">
-            <button id="usubmit">Add User</button>
+                <div id="usercreate">
+                    <input type="text" name="username" placeholder="username" pattern="[a-zA-Z]+">
+                    <button type="button" id="addu">➕</button>
+                </div>
+                <div id="userlist">
+                    <form>
+                    </form>
+                </div>
+                <button onclick="validate()">Confirm</button>
         </div>
         <div style="display:none;" class="questions">
             <div class="container">
@@ -37,7 +44,12 @@
 
         </div>
     </div>
-
+    <template user-template>
+        <div>
+            <input min="1" class="usernameinputs" type="text" placeholder="username" pattern="[a-zA-Z]+">
+            <button type="button" class="removebtn">❌</button>
+        </div>
+    </template>
 
 
 
@@ -45,37 +57,38 @@
 
     <script src="main.js"></script>
     <script>
-        let userworkspace = document.querySelector('.users')
-    for (const [name] of Object.entries(players)) {
-        let button = document.createElement('button')
-        button.className = "button-66 user"
-        button.textContent = name
-        userworkspace.append(button)
+    // Registration
+    const adduserbtn = document.querySelector('#addu');
+    const adduserinput = document.querySelector('input[name=username]')
+    const usertemplate = document.querySelector('[user-template]');
+    const userlist = document.querySelector('#userlist > form');
+    adduserbtn.addEventListener('click', () => {
+        let clone = usertemplate.cloneNode(true).content
+        clone.querySelector('input').value = adduserinput.value
+        clone.querySelector('button').setAttribute("onclick","removeField(this)");
+        userlist.appendChild(clone);
+        adduserinput.value = ''
+    })
+    document.querySelector('#title').textContent = `${nhie[language]}...`
+
+    function removeField(that){
+        that.parentElement.remove();
     }
-        
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-document.querySelector('#title').textContent = `${nhie[language]}...`
+    function validate() {
+        if (userlist.reportValidity()) {
+            let inputs = document.querySelectorAll('.usernameinputs')
+            let array = []
+            inputs.forEach((x) => {
+                array.push(x.value)
+            })
+            addPlayers(array)
+        }
+        else {
+            alert('Validation not correct!')
+        }
+    }
+    
     </script>
 </body>
 </html>

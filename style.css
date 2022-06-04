@@ -45,3 +45,62 @@ div.users {
 .button-66:focus {
     box-shadow: rgb(122 0 207) 0 -1px 3px 3px, rgb(91, 0, 156) 0 3px 6px 0;
 }
+label {
+  display: block;
+  border: 1px solid transparent;
+  display: flex;
+  max-width: 170px;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #eee;
+  align-items: center;
+  cursor: pointer;
+  margin: 5px;
+}
+
+label::before {
+  width: 35px;
+  padding: 10px 0;
+  display: block;
+  background-color: #ccc;
+  color: white;
+  font-size: 18px;
+  content: '!';
+  text-align: center;
+}
+
+label.money::before {
+  content: '$';
+}
+
+label.question::before {
+  content: '?';
+}
+
+label>.text {
+  display: block;
+  flex-grow: 1;
+  text-align: center;
+  height: 100%;
+  padding-top: 2px;
+  font-size: 13px;
+  color: #333;
+}
+
+label:hover,
+input:checked+label {
+  border: 1px solid #ff4c00;
+}
+
+label:hover>.text,
+input:checked+label>.text {
+  color: #ff4c00;
+}
+
+input:checked+label {
+  background-color: white;
+}
+
+input:checked+label::before {
+  background-color: #ff4c00;
+}

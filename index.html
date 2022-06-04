@@ -35,8 +35,10 @@
 				</div>
 			</div>
 			<button onclick="showNextQuestion();">Next Question</button>
-			<div style="display: none;" class="result"> </div>
+			<hr>
+			<button onclick="finish();">Finish the Game</button>
 		</div>
+		<div style="display: none;" class="result" id="results"> </div>
 		<script src="main.js"></script>
 		<script>
 		document.getElementById("title").innerText = `${nhie[language]}...`;
@@ -101,6 +103,18 @@
 				}
 			}
 			addScore(checkedUsers, question);
+		}
+
+		function finish() {
+			saveScoresOfUsers();
+			var resultsWrapper = document.getElementById("results");
+			var scores = genScoreboard();
+			for(var i = 0; i < scores.length; i++) {
+				resultsWrapper.insertAdjacentHTML('beforeend', '<p>' + (i + 1) + '. <b>' + scores[i][0] + '</b> ' + scores[i][1].questions.length + '</p>');
+			}
+			resultsWrapper.insertAdjacentHTML('beforeend', '<button onclick="location.reload();">Start a new game</button>');
+			document.getElementById("questions").style.display = "none";
+			resultsWrapper.style.removeProperty('display');
 		}
 		</script>
 </body>

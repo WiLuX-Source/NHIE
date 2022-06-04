@@ -15,6 +15,8 @@
 	<h1 id="title"></h1>
 	<div class="wrapper">
 		<div class="reg" id="reg">
+		<select id="languages" onchange="switchLang(this.value)">
+		</select>
 			<form id="usersRegForm">
 				<div id="userInputs">
 					<div id="userInput">
@@ -42,7 +44,9 @@
 		<script src="main.js"></script>
 		<script>
 		document.getElementById("title").innerText = `${nhie[language]}...`;
-
+		for(var i = 0; i < languages.length; i++) {
+			document.getElementById("languages").insertAdjacentHTML('beforeend', '<option value="'+languages[i]+'">'+languages[i]+'</option>');
+		}
 		function addUserFields() {
 			var userInputs = document.getElementById("userInputs");
 			var clonedNode = userInputs.lastElementChild.cloneNode(true);

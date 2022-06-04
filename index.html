@@ -10,6 +10,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet"> </head>
+
 <body>
 	<h1 id="title"></h1>
 	<div class="wrapper">
@@ -17,7 +18,7 @@
 			<form id="usersRegForm">
 				<div id="userInputs">
 					<div id="userInput">
-						<input type="text" class="usernameInput" name="username" placeholder="PlayerName" pattern="[a-zA-Z]+">
+						<input type="text" class="usernameInput" name="username" placeholder="PlayerName" pattern="[a-zA-Z]+" min=3 required>
 						<button type="button" class="removebtn" onclick="this.parentNode.remove();" style="display:none;">❌</button>
 					</div>
 				</div>
@@ -27,55 +28,81 @@
 		</div>
 		<div style="display:none;" class="questions" id="questions">
 			<p id="question"></p>
-			<div class="users">
-				<button class="button-66 user">User1</button>
-				<button class="button-66">User2</button>
-				<input type="checkbox" hidden name="User1">
-				<input type="checkbox" hidden name="User2"> </div>
+			<div class="players">
+				<div class="player">
+					<input style="display:none" id="chk1" type="checkbox">
+					<label for="chk1"> <span class="text">GENERIC</span> </label>
+				</div>
+			</div>
 			<button onclick="showNextQuestion();">Next Question</button>
+			<div style="display: none;" class="result"> </div>
 		</div>
-		<div style="display: none;" class="result"> </div>
-	</div>
-	<script src="main.js"></script>
-	<script>
-	document.getElementById("title").innerText = `${nhie[language]}...`;
+		<script src="main.js"></script>
+		<script>
+		document.getElementById("title").innerText = `${nhie[language]}...`;
 
-	function addUserFields() {
-		var userInputs = document.getElementById("userInputs");
-		var clonedNode = userInputs.lastElementChild.cloneNode(true);
-		clonedNode.firstElementChild.value = "";
-		clonedNode.lastElementChild.style.removeProperty('display');
-		userInputs.appendChild(clonedNode);
-	}
-
-	function startGame() {
-		if(document.getElementById("usersRegForm").reportValidity()) {
-			let inputs = document.getElementsByClassName("usernameInput");
-			let userarray = [];
-			for(var i = 0; i < inputs.length; i++) {
-				userarray.push(inputs[i].value)
-			}
-			addPlayers(userarray);
-			showNextQuestion();
-			document.getElementById("reg").style.display = "none";
-			document.getElementById("questions").style.display = "block";
+		function addUserFields() {
+			var userInputs = document.getElementById("userInputs");
+			var clonedNode = userInputs.lastElementChild.cloneNode(true);
+			clonedNode.firstElementChild.value = "";
+			clonedNode.lastElementChild.style.removeProperty('display');
+			userInputs.appendChild(clonedNode);
 		}
-	}
 
-	function showNextQuestion() {
-		var questionEl = document.getElementById("question");
-		var randQuestion = pickQuestion();
-		questionEl.innerText = randQuestion[1];
-		questionEl.setAttribute("qid", randQuestion[0]);
-	}
+		function startGame() {
+			if(document.getElementById("usersRegForm").reportValidity()) {
+				let inputs = document.getElementsByClassName("usernameInput");
+				let userarray = [];
+				for(var i = 0; i < inputs.length; i++) {
+					userarray.push(inputs[i].value)
+				}
+				addPlayers(userarray);
+				generatePlayerButtons(userarray);
+				showNextQuestion();
+				document.getElementById("reg").style.display = "none";
+				document.getElementById("questions").style.removeProperty('display');
+			}
+		}
 
-	function fetchSelectedUsers() {
-		//get all ticked checkboxes
-		//playerlist = array
-		//quesiton = document.getElementById("question").getAttribute("qid")
-		//addScore(playerList, question)
-	}
-	</script>
+		function showNextQuestion() {
+			saveScoresOfUsers();
+			var questionEl = document.getElementById("question");
+			var randQuestion = pickQuestion();
+			questionEl.innerText = randQuestion[1];
+			questionEl.setAttribute("qid", randQuestion[0]);
+		}
+
+		function generatePlayerButtons(userarray) {
+			var completedUsers = [];
+			var playersWrapper = document.getElementsByClassName("players")[0];
+			for(var i = 0; i < userarray.length; i++) {
+				var playerButton = playersWrapper.cloneNode(true);
+				playerButton.style.removeProperty('display');
+				playerButton.firstElementChild.firstElementChild.classList.add("playerbox");
+				if(!completedUsers.includes(userarray[i])) {
+					playerButton.firstElementChild.firstElementChild.id = userarray[i];
+					playerButton.firstElementChild.lastElementChild.setAttribute('for', userarray[i]);
+					playerButton.firstElementChild.lastElementChild.firstElementChild.innerText = userarray[i];
+					playersWrapper.appendChild(playerButton.firstElementChild);
+					completedUsers.push(userarray[i]);
+				}
+			}
+			playersWrapper.firstElementChild.remove();
+		}
+
+		function saveScoresOfUsers() {
+			var userCheckboxes = document.getElementsByClassName("playerbox");
+			var quesiton = document.getElementById("question").getAttribute("qid");
+			var checkedUsers = [];
+			for(var i = 0; i < userCheckboxes.length; i++) {
+				if(userCheckboxes[i].checked == true) {
+					checkedUsers.push(userCheckboxes[i].id);
+					userCheckboxes[i].checked = false;
+				}
+			}
+			addScore(checkedUsers, question);
+		}
+		</script>
 </body>
 
 </html>

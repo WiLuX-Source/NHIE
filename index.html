@@ -17,7 +17,7 @@
 			<form id="usersRegForm">
 				<div id="userInputs">
 					<div id="userInput">
-						<input type="text" class ="usernameInput" name="username" placeholder="PlayerName" pattern="[a-zA-Z]+"><button type="button" class="removebtn">❌</button>
+						<input type="text" class ="usernameInput" name="username" placeholder="PlayerName" pattern="[a-zA-Z]+"><button type="button" class="removebtn" onclick="this.parentNode.remove();" style="display:none;">❌</button>
 					</div>
 				</div>
 			</form>
@@ -38,11 +38,6 @@
 
         </div>
     </div>
-
-
-
-
-
     <script src="main.js"></script>
     <script>
 	document.getElementById("title").innerText = `${nhie[language]}...`;
@@ -50,6 +45,7 @@
 		var userInputs = document.getElementById("userInputs");
 		var clonedNode = userInputs.lastElementChild.cloneNode(true);
 		clonedNode.firstElementChild.value = "";
+		clonedNode.lastElementChild.style.removeProperty( 'display' );
 		userInputs.appendChild(clonedNode);
 	}
 	function startGame() {

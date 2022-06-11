@@ -1,0 +1,191 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
+  outline: 0;
+}
+
+h1, h2, span, p {
+  color: white;
+}
+
+#title {
+  color: white;
+  background: rgb(0 0 0 / 25%);
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid rgb(255 255 255 / 25%);
+}
+
+body {
+  background: linear-gradient(45deg, #0e0027, #a51eea) no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+div.users {
+  display: flex;
+  column-gap: 16px;
+}
+
+div#reg {
+  display: flex;
+  flex-flow: column;
+  background: rgb(0 0 0 / 25%);
+  padding: 16px;
+  border: 1px solid rgb(255 255 255 / 25%);
+  border-radius: 8px;
+}
+
+input {
+  background-color: #a51eea;
+  border: 0;
+  border-radius: 3px;
+  color: #fff;
+  font-family: 'Roboto';
+  font-size: 16px;
+  padding: 10px;
+  transition: all .2s cubic-bezier(.22, .61, .36, 1);
+}
+
+input:focus {
+  box-shadow: rgb(122 0 207) 0 -1px 3px 3px, rgb(91, 0, 156) 0 3px 6px 0;
+}
+
+input::placeholder {
+  color: #fff;
+}
+
+select {
+  background-color: #a51eea;
+  border: 0;
+  border-radius: 3px;
+  color: #fff;
+  font-family: 'Roboto';
+  font-size: 16px;
+  padding: 10px;
+  transition: all .2s cubic-bezier(.22, .61, .36, 1);
+}
+
+select:focus {
+  box-shadow: rgb(122 0 207) 0 -1px 3px 3px, rgb(91, 0, 156) 0 3px 6px 0;
+}
+
+#userInputs {
+  display: flex;
+  flex-flow: column;
+  row-gap: 10px;
+}
+
+/* CSS */
+.purple-button {
+  background-color: #a51eea;
+  border-radius: 4px;
+  border: 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  margin: 0;
+  min-height: 16px;
+  min-width: 32px;
+  padding: 8px 16px;
+  position: relative;
+  text-align: center;
+  vertical-align: baseline;
+  transition: all .2s cubic-bezier(.22, .61, .36, 1);
+  user-select: none;
+}
+
+.purple-button:hover {
+
+  background-color: #911acc;
+}
+
+.purple-button:focus {
+  box-shadow: rgb(122 0 207) 0 -1px 3px 3px, rgb(91, 0, 156) 0 3px 6px 0;
+}
+
+.removebtn {
+  background: none;
+  border: 0;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#question {
+  background: rgb(0 0 0 / 25%);
+  padding: 16px;
+  border: 1px solid rgb(255 255 255 / 25%);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.players {
+  background: rgb(0 0 0 / 25%);
+  padding: 16px;
+  border: 1px solid rgb(255 255 255 / 25%);
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 8px;
+  width: 320px;
+  margin-bottom: 2em;
+  margin-inline: auto;
+}
+
+label {
+  border: 1px solid transparent;
+  display: flex;
+  padding: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #7d19a9;
+  align-items: center;
+  cursor: pointer;
+}
+
+label.money::before {
+  content: '$';
+}
+
+label.question::before {
+  content: '?';
+}
+
+label>.text {
+  display: block;
+  flex-grow: 1;
+  text-align: center;
+  height: 100%;
+  padding-top: 2px;
+  font-size: 13px;
+  color: #333;
+  user-select: none;
+}
+
+label:hover,
+input:checked+label {
+  border: 1px solid #a51eea;
+}
+
+label:hover>.text,
+input:checked+label>.text {
+  color: #fff;
+}
+
+input:checked+label {
+  background-color: #a51eea;
+  box-shadow: rgb(122 0 207) 0 -1px 3px 3px, rgb(91, 0, 156) 0 3px 6px 0;
+}
+
+input:checked+label::before {
+  background-color: #a51eea;
+}

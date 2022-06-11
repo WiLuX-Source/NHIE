@@ -2359,7 +2359,9 @@ function pickQuestion(){
 	const uniqueQuestions = questions[language].filter((item) => !excludeMap?.[item]);
 	var rand =  Math.floor(Math.random() * (uniqueQuestions.length - 1));
 	window.questionsEx[language].push(uniqueQuestions[rand]);
-	return [rand, uniqueQuestions[rand].split(nhie[language], 3)[1].trim()];
+	var rquestion = uniqueQuestions[rand].split(nhie[language], 3);
+	rquestion = (rquestion.length == 1) ? rquestion[0] : rquestion[1];
+	return [rand, rquestion.trim()];
 }
 var players = {};
 function addPlayer(name){

@@ -1,94 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NHIE</title>
-    <link rel="stylesheet" href="main.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-</head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>NHIE</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet"> </head>
+
 <body>
-    <h1 id="title"></h1>
-    <div class="wrapper">
-        <div class="reg">
-                <div id="usercreate">
-                    <input type="text" name="username" placeholder="username" pattern="[a-zA-Z]+">
-                    <button type="button" id="addu">➕</button>
-                </div>
-                <div id="userlist">
-                    <form>
-                    </form>
-                </div>
-                <button onclick="validate()">Confirm</button>
-        </div>
-        <div style="display:none;" class="questions">
-            <div class="container">
-                <div class="users">
-                    <button class="button-66 user">User1</button>
-                    <button class="button-66">User2</button>
-                    <input type="checkbox" hidden name="User1">
-                    <input type="checkbox" hidden name="User2">
-                </div>
-                <button class="button-66">Next Question</button>
-            </div>
-            <div class="status">
-                <h2>Status</h2>
-                <span>User1 : Score</span>
-                <span>User2 : Score</span>
-            </div>
-        </div>
-        <div style="display: none;" class="result">
+	<h1 id="title"></h1>
+	<div class="wrapper">
+		<div class="reg" id="reg">
+		<select style="margin-bottom: 10px;max-width: 202px;" id="languages" onchange="switchLang(this.value)">
+			<option style="display:none;" selected>Select language</option>
+		</select>
+			<form id="usersRegForm">
+				<div id="userInputs">
+					<div id="userInput">
+						<input type="text" class="usernameInput" name="username" placeholder="Player Name" pattern="[a-zA-Z]+" min=3 required>
+						<button type="button" class="removebtn" onclick="this.parentNode.remove();" style="display:none;">❌</button>
+					</div>
+				</div>
+			</form>
+			<div style="margin-top: 16px">
+				<button class="purple-button" onclick="addUserFields();"> + </button>
+				<button class="purple-button" onclick="startGame();"> Start the Game </button>
+			</div>
+		</div>
+		<div style="display:none;" class="questions" id="questions">
+			<p id="question"></p>
+			<div class="players">
+				<div class="player">
+					<input style="display:none" id="chk1" type="checkbox">
+					<label for="chk1"> <span class="text">GENERIC</span> </label>
+				</div>
+			</div>
+			<button class="purple-button" onclick="showNextQuestion();">Next Question</button>
+			<hr>
+			<button class="purple-button" onclick="finish();">Finish the Game</button>
+		</div>
+		<div style="display: none;" class="result" id="results"> </div>
+		<script src="main.js"></script>
+		<script>
+		document.getElementById("title").innerText = `${nhie[language]}...`;
+		for(var i = 0; i < languages.length; i++) {
+			document.getElementById("languages").insertAdjacentHTML('beforeend', '<option value="'+languages[i]+'">'+languages[i]+'</option>');
+		}
+		function addUserFields() {
+			var userInputs = document.getElementById("userInputs");
+			var clonedNode = userInputs.lastElementChild.cloneNode(true);
+			clonedNode.firstElementChild.value = "";
+			clonedNode.lastElementChild.style.removeProperty('display');
+			userInputs.appendChild(clonedNode);
+		}
 
-        </div>
-    </div>
-    <template user-template>
-        <div>
-            <input min="1" class="usernameinputs" type="text" placeholder="username" pattern="[a-zA-Z]+">
-            <button type="button" class="removebtn">❌</button>
-        </div>
-    </template>
+		function startGame() {
+			if(document.getElementById("usersRegForm").reportValidity()) {
+				let inputs = document.getElementsByClassName("usernameInput");
+				let userarray = [];
+				for(var i = 0; i < inputs.length; i++) {
+					userarray.push(inputs[i].value)
+				}
+				addPlayers(userarray);
+				generatePlayerButtons(userarray);
+				showNextQuestion();
+				document.getElementById("reg").style.display = "none";
+				document.getElementById("questions").style.removeProperty('display');
+			}
+		}
 
+		function showNextQuestion() {
+			saveScoresOfUsers();
+			var questionEl = document.getElementById("question");
+			var randQuestion = pickQuestion();
+			questionEl.innerText = randQuestion[1];
+			questionEl.setAttribute("qid", randQuestion[0]);
+		}
 
+		function generatePlayerButtons(userarray) {
+			var completedUsers = [];
+			var playersWrapper = document.getElementsByClassName("players")[0];
+			for(var i = 0; i < userarray.length; i++) {
+				var playerButton = playersWrapper.cloneNode(true);
+				playerButton.style.removeProperty('display');
+				playerButton.firstElementChild.firstElementChild.classList.add("playerbox");
+				if(!completedUsers.includes(userarray[i])) {
+					playerButton.firstElementChild.firstElementChild.id = userarray[i];
+					playerButton.firstElementChild.lastElementChild.setAttribute('for', userarray[i]);
+					playerButton.firstElementChild.lastElementChild.firstElementChild.innerText = userarray[i];
+					playersWrapper.appendChild(playerButton.firstElementChild);
+					completedUsers.push(userarray[i]);
+				}
+			}
+			playersWrapper.firstElementChild.remove();
+		}
 
+		function saveScoresOfUsers() {
+			var userCheckboxes = document.getElementsByClassName("playerbox");
+			var quesiton = document.getElementById("question").getAttribute("qid");
+			var checkedUsers = [];
+			for(var i = 0; i < userCheckboxes.length; i++) {
+				if(userCheckboxes[i].checked == true) {
+					checkedUsers.push(userCheckboxes[i].id);
+					userCheckboxes[i].checked = false;
+				}
+			}
+			addScore(checkedUsers, question);
+		}
 
-
-    <script src="main.js"></script>
-    <script>
-    // Registration
-    const adduserbtn = document.querySelector('#addu');
-    const adduserinput = document.querySelector('input[name=username]')
-    const usertemplate = document.querySelector('[user-template]');
-    const userlist = document.querySelector('#userlist > form');
-    adduserbtn.addEventListener('click', () => {
-        let clone = usertemplate.cloneNode(true).content
-        clone.querySelector('input').value = adduserinput.value
-        clone.querySelector('button').setAttribute("onclick","removeField(this)");
-        userlist.appendChild(clone);
-        adduserinput.value = ''
-    })
-    document.querySelector('#title').textContent = `${nhie[language]}...`
-
-    function removeField(that){
-        that.parentElement.remove();
-    }
-
-    function validate() {
-        if (userlist.reportValidity()) {
-            let inputs = document.querySelectorAll('.usernameinputs')
-            let array = []
-            inputs.forEach((x) => {
-                array.push(x.value)
-            })
-            addPlayers(array)
-        }
-        else {
-            alert('Validation not correct!')
-        }
-    }
-    
-    </script>
+		function finish() {
+			saveScoresOfUsers();
+			var resultsWrapper = document.getElementById("results");
+			var scores = genScoreboard();
+			for(var i = 0; i < scores.length; i++) {
+				resultsWrapper.insertAdjacentHTML('beforeend', '<p>' + (i + 1) + '. <b>' + scores[i][0] + '</b> ' + scores[i][1].questions.length + '</p>');
+			}
+			resultsWrapper.insertAdjacentHTML('beforeend', '<button class="purple-button" onclick="location.reload();">Start a new game</button>');
+			document.getElementById("questions").style.display = "none";
+			resultsWrapper.style.removeProperty('display');
+		}
+		</script>
 </body>
+
 </html>

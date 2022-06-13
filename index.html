@@ -41,7 +41,7 @@
 			</div>
 			<button class="purple-button" onclick="showNextQuestion();">Next Question</button>
 			<hr>
-			<button class="purple-button" onclick="finish();">Finish the Game</button>
+			<button class="purple-button" onclick="if (confirm('Are you sure you want to finish the game?')) return finish();">Finish the Game</button>
 		</div>
 		<div style="display: none;" class="result" id="results"> </div>
 		<script src="main.js"></script>

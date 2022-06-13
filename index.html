@@ -46,6 +46,7 @@
 		<div style="display: none;" class="result" id="results"> </div>
 		<script src="main.js"></script>
 		<script>
+		window.onbeforeunload = function() { return "Reloading the page results in losing progress."; } 
 		document.getElementById("title").innerText = `${nhie[language]}...`;
 		for(var i = 0; i < languages.length; i++) {
 			document.getElementById("languages").insertAdjacentHTML('beforeend', '<option value="'+languages[i]+'">'+languages[i]+'</option>');

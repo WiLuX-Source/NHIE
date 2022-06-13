@@ -77,6 +77,7 @@
 			saveScoresOfUsers();
 			var questionEl = document.getElementById("question");
 			var randQuestion = pickQuestion();
+			if(randQuestion[0] == -1) return finish();
 			questionEl.innerText = randQuestion[1];
 			questionEl.setAttribute("qid", randQuestion[0]);
 		}

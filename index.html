@@ -124,6 +124,7 @@
 			resultsWrapper.insertAdjacentHTML('beforeend', '<button class="purple-button" onclick="location.reload();">Start a new game</button>');
 			document.getElementById("questions").style.display = "none";
 			resultsWrapper.style.removeProperty('display');
+			window.onbeforeunload = null;
 		}
 		</script>
 </body>

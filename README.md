@@ -25,3 +25,6 @@ Yep as long as your device supports a decent web browser it supports it.
 You report a bug from [here](https://github.com/WiLuX-Source/NHIE/issues)
 
 ## [Changelog](https://github.com/WiLuX-Source/NHIE/releases)
+
+### Credits
+Thanks to [jondycz](https://github.com/jondycz) for providing list of questions and JavaScript code for the logic of the game.

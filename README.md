@@ -22,7 +22,7 @@ You don't. There is no winner.
 Yep as long as your device supports a decent web browser it supports it.
 
 ### How to report a bug?
-You report a bug from [here](https://github.com/WiLuX-Source/NHIE/issues)
+You can report a bug from [here](https://github.com/WiLuX-Source/NHIE/issues)
 
 ## [Changelog](https://github.com/WiLuX-Source/NHIE/releases)
 
